@@ -68,7 +68,10 @@ export default function BookDetail() {
 
   return (
     <div className="space-y-8">
-      <button onClick={() => router.back()} className="text-blue-500 hover:underline">
+      <button
+        onClick={() => router.back()}
+        className="text-blue-500 hover:underline"
+      >
         &larr; Back
       </button>
       {/* Book Details */}
@@ -87,9 +90,13 @@ export default function BookDetail() {
               By {volumeInfo.authors.join(", ")}
             </p>
           )}
-          <p className="mt-4 text-gray-700 dark:text-gray-200">
-            {volumeInfo.description || "No description available."}
-          </p>
+          {/* Option B: Render description as HTML */}
+          <div
+            className="mt-4 text-gray-700 dark:text-gray-200"
+            dangerouslySetInnerHTML={{
+              __html: volumeInfo.description || "No description available.",
+            }}
+          />
         </div>
       </div>
 
@@ -98,13 +105,22 @@ export default function BookDetail() {
         <h3 className="text-2xl font-bold mb-4">Reviews</h3>
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-4">
-              <p className="text-gray-800 dark:text-gray-200">{review.text}</p>
-              <p className="text-sm text-gray-500 mt-2">Rating: {review.rating}</p>
+            <div
+              key={index}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-4"
+            >
+              <p className="text-gray-800 dark:text-gray-200">
+                {review.text}
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                Rating: {review.rating}
+              </p>
             </div>
           ))
         ) : (
-          <p className="text-gray-600 dark:text-gray-300">No reviews available.</p>
+          <p className="text-gray-600 dark:text-gray-300">
+            No reviews available.
+          </p>
         )}
       </div>
 
@@ -116,7 +132,10 @@ export default function BookDetail() {
             {recommendedBooks.map((recBook) => {
               const recInfo = recBook.volumeInfo || {};
               return (
-                <div key={recBook.id} className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                <div
+                  key={recBook.id}
+                  className="bg-white dark:bg-gray-800 rounded-lg shadow p-4"
+                >
                   {recInfo.imageLinks?.thumbnail && (
                     <img
                       src={recInfo.imageLinks.thumbnail}
@@ -137,7 +156,9 @@ export default function BookDetail() {
             })}
           </div>
         ) : (
-          <p className="text-gray-600 dark:text-gray-300">No recommendations available.</p>
+          <p className="text-gray-600 dark:text-gray-300">
+            No recommendations available.
+          </p>
         )}
       </div>
     </div>
